@@ -26,11 +26,11 @@ BITS 64
 
             sub rsi, 1 ;1 book down, keep going through books until n(rsi) is 0
 
-            cmp rsi, 0
+            cmp rsi, 0 ;check if we are done
 
-            jg .loop
+            jg .loop ;not done--> on to the next book
 
-        ret
+        ret ;return
 
 
     
