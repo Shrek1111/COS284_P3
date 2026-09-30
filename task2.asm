@@ -8,15 +8,14 @@ section .text
 BITS 64
 
     average_rating:
-        xor rax, rax ;this will be our running total of averages
-        xor rcx, rcx ;this will be our running total of books
+        pxor xmm0, xmm0 ;this will be our running total of averages
+        pxor xmm1, xmm1 ;this will be our running total of books
+
+        cvtsi2sd xmm1, rsi
 
         .loop:
-            movsxd rdx, dword [rsi + 8] ;get average of next book
+            addsd xmm0, [rdi + 8] ;add average to running total
 
-            add rax, rdx ;add it to the running total
-
-            add rcx, 1 ;add book to running total
 
             add rdi, 24 ;go to next book
 
@@ -25,5 +24,7 @@ BITS 64
             cmp rsi, 0 ;if all books are done(rsi <= 0), we can exit and return
 
             jg .loop ;else go to next book
+
+        divsd xmm0, xmm1
 
         ret ;return
