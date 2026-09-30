@@ -18,7 +18,7 @@ BITS 64
         xor rax, rax ;set rax to 0, the running total
 
         .loop:
-            movsxd rcx, [rdi + 16]; read number of pages of next book
+            movsxd rcx, dword [rdi + 16]; read number of pages of next book
 
             add rax, rcx; add it to the running total
 
