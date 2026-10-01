@@ -1,6 +1,6 @@
 ; again, similar logic
 ; what we need: storage for current book: rdi.
-; storage for highest rated book: rcx.
+; storage for highest rated book: rax.
 ; storage for current book rating: xmm0
 ; storage for highest book rating: xmm1
 ; number of books left to check(n): rsi
@@ -11,7 +11,7 @@ section .text
 BITS 64
 
     best_book:
-        xor rcx, rcx ;clear highest book storage
+        xor rax, rax ;clear highest book storage
         pxor xmm1, xmm1 ;clear storage for highest rating
 
         .loop:
@@ -30,7 +30,7 @@ BITS 64
 
             .replace:
                 movsd xmm1, xmm0 ;get new highest book rating
-                mov rcx, rdi ;get new highest book pointer
+                mov rax, rdi ;get new highest book pointer
                 sub rsi, 1 ;one book down
                 add rdi, 24 ;next book
                 jmp .loop ;on to the next
