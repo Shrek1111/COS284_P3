@@ -11,7 +11,7 @@ BITS 64
         pxor xmm0, xmm0 ;this will be our running total of averages
         pxor xmm1, xmm1 ;this will be our running total of books
 
-        cvtsi2sd xmm1, rsi
+        cvtsi2sd xmm1, rsi ;convert n to a double so we can use it on the averages  
 
         .loop:
             addsd xmm0, [rdi + 8] ;add average to running total
@@ -25,6 +25,6 @@ BITS 64
 
             jg .loop ;else go to next book
 
-        divsd xmm0, xmm1
+        divsd xmm0, xmm1 ;avg = sum of ratings/total books
 
         ret ;return
