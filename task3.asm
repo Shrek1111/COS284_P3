@@ -16,7 +16,7 @@ BITS 64
 
             jle .done ;if not, we are done here
 
-            addsd xmm1, [rdi + 8] ;get rating of book
+            movsd xmm1, qword [rdi + 8] ;get rating of book
 
             add rdi, 24 ;move to next book for next iteration
 
