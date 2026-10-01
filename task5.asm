@@ -24,9 +24,15 @@ BITS 64
             cmp rsi, 0
             jle .done ;if not, we are done
 
-            addsd xmm1, [rdi + 16] ;add pages to running total
-            addsd xmm3, [rdi + 16] ;get current book's pages
-            addsd xmm4, [rdi + 8] ;get rating of current book
+            mov rcx, [rdi + 16] ;add pages to temporary storage
+            cvtsi2sd xmm10, rcx ;convert to temp storage
+            addsd xmm1, xmm10 ;add to running total
+
+            mov rcx, [rdi + 16] ;get current book's pages in temp storage
+            cvtsi2sd xmm3, rcx ;convert
+
+
+            movsd xmm4, [rdi + 8] ;get rating of current book
 
             mulsd xmm3, xmm4 ;get current books pages*rating
             movsd xmm2, xmm3 ;store in xmm2 (unnecessary but cleaner for me)
@@ -35,6 +41,7 @@ BITS 64
 
             add rdi, 24 ; next book
             sub rsi, 1 ;one book down
+            jmp .loop
 
 
 
